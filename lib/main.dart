@@ -15,7 +15,7 @@ class Ourapp extends StatelessWidget {
       initialRoute: "/",
       routes: {
         "/": (context) => Wallpaper_homepage(),
-        "categories": (_) => Categories()
+        "/categories": (_) => Categories()
       },
     );
   }

@@ -113,22 +113,58 @@ class Wallpaper_homepage extends StatelessWidget {
                 //categories grid view
                 SizedBox(
                   height: 400,
-                  child: GridView.extent(
-                    physics: const NeverScrollableScrollPhysics(),
-                    maxCrossAxisExtent: 300,
-                    scrollDirection: Axis.vertical,
-                    crossAxisSpacing: 10,
-                    //use for getting space in column
-                    mainAxisSpacing: 10,
-                    //use for getting space in row
-                    children: [
-                      categoriesstack(
-                          categoriName: "Abstract", context: context),
-                      categoriesstack(categoriName: "Nature", context: context),
-                      categoriesstack(categoriName: "galaxy", context: context),
-                      categoriesstack(categoriName: "flower", context: context),
-                    ],
-                  ),
+                  child: GridView.builder(
+                      physics: const NeverScrollableScrollPhysics(),
+                      gridDelegate:
+                          const SliverGridDelegateWithMaxCrossAxisExtent(
+                              mainAxisSpacing:
+                                  10, //use for getting space in row
+                              crossAxisSpacing:
+                                  10, //use for getting space in column
+                              maxCrossAxisExtent:
+                                  300 //use for giving width to each item
+                              ),
+                      itemCount: imeages_categories.allimeages.length,
+                      itemBuilder: (contex, index) {
+                        return InkWell(
+                          onTap: () {
+                            Navigator.pushNamed(context, "/categories",
+                                arguments: {
+                                  "categoriIndex": index,
+                                  "categoriName": imeages_categories
+                                      .allimeages[index]["categori_name"]
+                                });
+                          },
+                          child: Stack(
+                            children: [
+                              Container(
+                                decoration: BoxDecoration(
+                                  image: DecorationImage(
+                                    image: AssetImage(
+                                        imeages_categories.allimeages[index]
+                                            ["categori_thumbnail"]),
+                                    fit: BoxFit
+                                        .cover, // Add this to fit the image within the container
+                                  ),
+                                  color: Colors.deepPurpleAccent,
+                                  borderRadius: BorderRadius.circular(20),
+                                ),
+                              ),
+                              Align(
+                                  alignment: Alignment.center,
+                                  child: Text(
+                                    imeages_categories.allimeages[index]
+                                        ["categori_name"],
+                                    style: const TextStyle(
+                                        color: Colors.white,
+                                        fontWeight: FontWeight.w600,
+                                        fontSize: 45,
+                                        fontFamily: "SlacksideOne"),
+                                  ))
+                            ],
+                          ),
+                        );
+                      }),
                 )
               ],
             ),
@@ -150,39 +186,6 @@ class Wallpaper_homepage extends StatelessWidget {
             const BoxShadow(
                 color: Colors.grey, blurRadius: 3, offset: Offset(2, -1))
           ]),
-    );
-  }
-
-  Widget categoriesstack({required String categoriName, context}) {
-    return InkWell(
-      onTap: () {
-        Navigator.pushNamed(context, "categories");
-      },
-      child: Stack(
-        children: [
-          Container(
-            decoration: BoxDecoration(
-              image: const DecorationImage(
-                image: AssetImage("assets/images/img1.jpg"),
-                fit: BoxFit
-                    .cover, // Add this to fit the image within the container
-              ),
-              color: Colors.deepPurpleAccent,
-              borderRadius: BorderRadius.circular(20),
-            ),
-          ),
-          Align(
-              alignment: Alignment.center,
-              child: Text(
-                categoriName,
-                style: const TextStyle(
-                    color: Colors.white,
-                    fontWeight: FontWeight.w600,
-                    fontSize: 45,
-                    fontFamily: "SlacksideOne"),
-              ))
-        ],
-      ),
     );
   }
 }
