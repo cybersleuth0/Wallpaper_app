@@ -122,10 +122,11 @@ class Wallpaper_homepage extends StatelessWidget {
                     mainAxisSpacing: 10,
                     //use for getting space in row
                     children: [
-                      categoriesstack(categoriName: "Abstract"),
-                      categoriesstack(categoriName: "Nature"),
-                      categoriesstack(categoriName: "galaxy"),
-                      categoriesstack(categoriName: "flower"),
+                      categoriesstack(
+                          categoriName: "Abstract", context: context),
+                      categoriesstack(categoriName: "Nature", context: context),
+                      categoriesstack(categoriName: "galaxy", context: context),
+                      categoriesstack(categoriName: "flower", context: context),
                     ],
                   ),
                 )
@@ -152,31 +153,36 @@ class Wallpaper_homepage extends StatelessWidget {
     );
   }
 
-  Widget categoriesstack({required String categoriName}) {
-    return Stack(
-      children: [
-        Container(
-          decoration: BoxDecoration(
-            image: const DecorationImage(
-              image: AssetImage("assets/images/img1.jpg"),
-              fit: BoxFit
-                  .cover, // Add this to fit the image within the container
+  Widget categoriesstack({required String categoriName, context}) {
+    return InkWell(
+      onTap: () {
+        Navigator.pushNamed(context, "categories");
+      },
+      child: Stack(
+        children: [
+          Container(
+            decoration: BoxDecoration(
+              image: const DecorationImage(
+                image: AssetImage("assets/images/img1.jpg"),
+                fit: BoxFit
+                    .cover, // Add this to fit the image within the container
+              ),
+              color: Colors.deepPurpleAccent,
+              borderRadius: BorderRadius.circular(20),
             ),
-            color: Colors.deepPurpleAccent,
-            borderRadius: BorderRadius.circular(20),
           ),
-        ),
-        Align(
-            alignment: Alignment.center,
-            child: Text(
-              categoriName,
-              style: const TextStyle(
-                  color: Colors.white,
-                  fontWeight: FontWeight.w600,
-                  fontSize: 45,
-                  fontFamily: "SlacksideOne"),
-            ))
-      ],
+          Align(
+              alignment: Alignment.center,
+              child: Text(
+                categoriName,
+                style: const TextStyle(
+                    color: Colors.white,
+                    fontWeight: FontWeight.w600,
+                    fontSize: 45,
+                    fontFamily: "SlacksideOne"),
+              ))
+        ],
+      ),
     );
   }
 }

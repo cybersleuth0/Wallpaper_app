@@ -1,5 +1,6 @@
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
+import 'package:wallpaper/second_page.dart';
 import 'package:wallpaper/wallpaper_homepage.dart';
 
 void main() {
@@ -10,8 +11,12 @@ class Ourapp extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return MaterialApp(
-      home: Wallpaper_homepage(),
       debugShowCheckedModeBanner: false,
+      initialRoute: "/",
+      routes: {
+        "/": (context) => Wallpaper_homepage(),
+        "categories": (_) => Categories()
+      },
     );
   }
 }
